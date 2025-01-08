@@ -1,6 +1,6 @@
 .header {
     margin: auto;
-    padding: 0 1rem;
+    padding: 0.5rem 1rem;
     width: 100%;
 
     display: grid;
@@ -9,7 +9,7 @@
     cursor: default;
     user-select: none;
 
-    border: 1px solid black;
+    box-shadow: 0 0 4px 0 grey;
 }
 
 .hamburger,
@@ -41,8 +41,10 @@
 
     display: flex;
     gap: 0.25rem;
+
+    transition: all linear 100ms;
 }
 
 .misc-options-holder:hover {
-    background-color: black;
+    background-color: #e0e0e0;
 }
