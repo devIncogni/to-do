@@ -1,0 +1,18 @@
+.side-nav-bar {
+    display: flex;
+    flex-direction: column;
+
+    user-select: none;
+    width: 18rem;
+}
+
+.header-nav-bar {
+    display: flex;
+}
+
+.side-nav-bar-content {
+    flex: 1;
+    min-height: 4rem;
+    overflow-y: scroll;
+}
+
