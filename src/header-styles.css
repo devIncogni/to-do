@@ -2,7 +2,7 @@
     margin: auto;
     padding: 0.5rem 1rem;
     width: 100%;
-    min-height: 4rem;;
+    min-height: 4rem;
 
     display: grid;
     grid-template-columns: auto repeat(2, 1fr);
@@ -10,6 +10,7 @@
     cursor: default;
     user-select: none;
 
+    background-color: #faf9f8;
     /* box-shadow: 0 0 4px 0 grey; */
 }
 
