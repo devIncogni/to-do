@@ -3,11 +3,12 @@ import "./normal-styles.css";
 import "./header-styles.css";
 import "./side-nav-bar-styles.css";
 import "./scroll-bar-styles.css";
+import "./main-content-styles.css";
 import { Menu } from "./menu-toggle.js";
 import menuImage from "./menu.svg";
 import sunImage from "./sun-clock-outline.svg";
 import "./circle-outline.svg";
-import "./main-content-styles.css";
+import "./star-outline.svg";
 // import "./menu.svg";
 
 const menuLoader = (function () {
