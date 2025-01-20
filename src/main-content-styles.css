@@ -1,0 +1,29 @@
+.main-content {
+    padding: 1rem;
+}
+
+.create-task {
+    padding: 0.125rem 1rem;
+    /* border: 1px solid black; */
+    background-color: #f0f6ff;
+    border-radius: 0.25rem;
+
+    display: flex;
+    align-items: center;
+    user-select: none;
+}
+
+.add-task-container {
+    background-color: inherit;
+    flex: auto;
+}
+
+.create-task input {
+    background-color: inherit;
+
+    padding: 0.6rem;
+    width: 100%;
+    appearance: none;
+    border: none;
+    outline: none;
+}
