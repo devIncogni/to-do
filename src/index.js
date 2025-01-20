@@ -9,6 +9,7 @@ import menuImage from "./menu.svg";
 import sunImage from "./sun-clock-outline.svg";
 import "./circle-outline.svg";
 import "./star-outline.svg";
+import { ToDo } from "./to-do.js";
 // import "./menu.svg";
 
 const menuLoader = (function () {
@@ -26,5 +27,19 @@ const menuLoader = (function () {
     new Menu(sideMenuButton, sideNavBar).closeMenu();
     let image = document.querySelector(".head-menu-image");
     image.src = menuImage;
+  });
+})();
+
+const taskCreate = (function () {
+  const taskInputField = document.querySelector(".create-task input");
+  taskInputField.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      console.log("Enter key pressed!");
+      if (taskInputField.value) {
+        const task = new ToDo(taskInputField.value);
+      }
+
+      event.preventDefault();
+    }
   });
 })();
