@@ -9,7 +9,7 @@ import menuImage from "./menu.svg";
 import sunImage from "./sun-clock-outline.svg";
 import "./circle-outline.svg";
 import "./star-outline.svg";
-import { ToDo } from "./to-do.js";
+import { ToDo, TaskHolder } from "./to-do.js";
 // import "./menu.svg";
 
 const menuLoader = (function () {
@@ -35,8 +35,18 @@ const taskCreate = (function () {
   taskInputField.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       console.log("Enter key pressed!");
+      console.log(taskInputField.className);
+
       if (taskInputField.value) {
         const task = new ToDo(taskInputField.value);
+
+        if (taskInputField.className == "input-to-my-day") {
+          TaskHolder.addTaskToMyDay(task);
+        } else {
+          TaskHolder.addTask(task);
+        }
+
+        taskInputField.value = "";
       }
 
       event.preventDefault();
