@@ -9,9 +9,14 @@ class ToDo {
   ) {
     this.title = title;
     this.importance = importance;
+    this.creationDate = new Date();
     this.dueDate = dueDate;
     this.notes = notes;
     this.complete = complete;
+  }
+
+  get creationDate() {
+    return this.creationDate;
   }
 
   modifyDueDate(dueDate) {
@@ -35,26 +40,8 @@ class ToDo {
   }
 }
 
-const TaskHolder = (function () {
-  const allTasks = [];
-  const myDay = [];
 
-  const addTaskToMyDay = (Task) => {
-    myDay.push(Task);
-    allTasks.push(Task);
-  };
 
-  const addTask = (Task) => {
-    allTasks.push(Task);
-  };
-
-  const getAllTasks = () => {
-    return allTasks;
-  };
-
-  return { addTaskToMyDay, getAllTasks, addTask };
-})();
-
-export { ToDo, TaskHolder };
+export { ToDo };
 
 // console.log(format(new Date(), "dd/MM/yyyy"));
