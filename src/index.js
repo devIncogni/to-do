@@ -14,18 +14,18 @@ import "./star-outline.svg";
 
 // JS Imports
 import { ElementHider } from "./ElementHider.js";
-import { ToDo, TaskHolder } from "./to-do.js";
+import { ToDo } from "./to-do.js";
+import { TodoProjects, AllTasks, MyDay } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 
-let abc = new ToDo("Hello WOrld", "normal", "", "", false);
+let abc = new ToDo("HW", "normal", "2025-02-15", "", "");
 console.log(abc);
+console.log(abc.dueToday());
 
-TaskHolder.addTaskToMyDay(abc);
-console.log(TaskHolder.getAllTasks());
+AllTasks.addToTaskList(abc);
+console.log(AllTasks.taskList[0]);
+MyDay.createListAutomatically(AllTasks.taskList);
+console.log(MyDay.taskList[0]);
 
-// TaskHolder.removeTask(abc);
-// console.log(TaskHolder.getAllTasks());
-
-// TaskHolder.getAllTasks()[0].toggleImportance();
-
-console.log(TaskHolder.getAllTasks());
+AllTasks.removeFromTaskList(abc);
+console.log(AllTasks.taskList[0]);

@@ -1,26 +1,35 @@
-class TodoProjects {
+class TodoProject {
   constructor(projectName) {
     // super();
     this.projectName = projectName;
-    this.tasklist = [];
+    this._taskList = [];
   }
 
   addToTaskList(task) {
-    this.tasklist.push(task);
+    this._taskList.push(task);
   }
 
   removeFromTaskList(task) {
-    for (let i = 0; i < this.tasklist.length; i++) {
-      const currentTask = this.tasklist[i];
-      if (currentTask == task) {
-        this.tasklist.splice(i, 1);
-      }
-    }
+    this._taskList = this._taskList.filter((t) => t !== task);
   }
 
-  get tasklist() {
-    return this.tasklist;
+  get taskList() {
+    return this._taskList;
   }
 }
 
-export { TodoProjects };
+const AllTasks = new TodoProject("All Tasks");
+
+class MyDayProject extends TodoProject {
+  constructor() {
+    super("My Day");
+  }
+
+  createListAutomatically(taskList) {
+    this._taskList = taskList.filter((t) => t.dueToday());
+  }
+}
+
+const MyDay = new MyDayProject();
+
+export { TodoProject, AllTasks, MyDay };

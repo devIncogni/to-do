@@ -1,4 +1,4 @@
-// import { format } from "date-fns";
+import { format } from "date-fns";
 class ToDo {
   constructor(
     title,
@@ -9,14 +9,21 @@ class ToDo {
   ) {
     this.title = title;
     this.importance = importance;
-    this.creationDate = new Date();
-    this.dueDate = dueDate;
+    this._creationDate = format(new Date(), "dd/MM/yyyy");
+    this.dueDate = dueDate != "" ? format(dueDate, "dd/MM/yyyy") : "";
     this.notes = notes;
     this.complete = complete;
   }
 
   get creationDate() {
-    return this.creationDate;
+    return this._creationDate;
+  }
+
+  dueToday() {
+    if (this.dueDate == this.creationDate) {
+      return true;
+    }
+    return false;
   }
 
   modifyDueDate(dueDate) {
