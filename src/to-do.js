@@ -40,8 +40,6 @@ class ToDo {
   }
 }
 
-
-
 export { ToDo };
 
 // console.log(format(new Date(), "dd/MM/yyyy"));

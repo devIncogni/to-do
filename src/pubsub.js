@@ -1,8 +1,12 @@
 const pubsub = (() => {
   const events = {};
 
-  const subscribe = (eventName, fn) => {
+  const addEvent = (eventName) => {
     events[eventName] = events[eventName] || [];
+  };
+
+  const subscribe = (eventName, fn) => {
+    addEvent(eventName);
     events[eventName].push(fn);
   };
 
