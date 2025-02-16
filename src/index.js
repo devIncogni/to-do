@@ -13,7 +13,6 @@ import "./circle-outline.svg";
 import "./star-outline.svg";
 
 // JS Imports
-import { ElementHider } from "./ElementHider.js";
 import { ToDo } from "./to-do.js";
 import { TodoProjects, AllTasks, MyDay } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
