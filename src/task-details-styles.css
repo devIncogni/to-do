@@ -1,0 +1,126 @@
+.task-details {
+    width: 22rem;
+    z-index: 555555;
+
+    background-color: #faf9f8;
+
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: center;
+
+    user-select: none;
+    box-shadow: 0 0 1.5rem -1rem black;
+}
+
+.task-card {
+    width: 19rem;
+
+    border-radius: 0.25rem;
+    margin: 1rem 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+/* #region close button div */
+
+.close-task-card {
+    padding: 0.75rem 1rem;
+
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.close-task-card>p {
+    flex: 1;
+    font-size: 0.5rem;
+}
+
+.close-task-card>img {
+    cursor: pointer;
+    padding: 0.2rem;
+}
+
+/* #endregion close button div */
+
+.task-title-holder,
+.step-check-list,
+.add-to-my-day,
+.set-due-date,
+.notes {
+    padding: 0.75rem 1rem;
+    background-color: #fff;
+    color: #212121;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+
+    border: 1px solid white;
+    border-radius: 0.25rem;
+
+    transition: border 100ms ease-in-out;
+}
+
+.notes {
+    padding: 0;
+    flex: 1;
+}
+
+.task-title-holder {
+    cursor: default;
+}
+
+.task-title-text-box-holder,
+.add-to-my-day>p {
+    flex: 1;
+}
+
+#task-title-text-box {
+    width: 100%;
+    outline: none;
+    border: none;
+}
+
+.task-title-holder:hover,
+.step-check-list:hover,
+.add-to-my-day:hover,
+.set-due-date:hover,
+.notes:hover {
+    color: #000000;
+    border: 1px solid black;
+    border-radius: 0.25rem;
+}
+
+.step-check-list:active,
+.add-to-my-day:active,
+.set-due-date:active {
+    background-color: #f6f6f6;
+}
+
+.my-day-img,
+.due-date-img {
+    width: 1.25rem;
+}
+
+#to-do-due-date {
+    border: none;
+    width: 0;
+}
+
+#todo-notes {
+
+    padding: 0.75rem 1rem;
+
+    height: 100%;
+    resize: none;
+    flex: 1;
+    border: none;
+    border-radius: 0.25rem;
+
+    outline: none;
+}
