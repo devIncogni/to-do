@@ -14,6 +14,7 @@ import "./circle-outline.svg";
 import "./star-outline.svg";
 import "./calendar-month-outline.svg";
 import "./close.svg";
+import "./delete-forever-outline.svg"
 
 // JS Imports
 import { ToDo } from "./to-do.js";
