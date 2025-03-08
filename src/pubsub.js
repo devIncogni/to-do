@@ -34,7 +34,7 @@ const pubsub = (() => {
     }
   };
 
-  return { subscribe, unsubscribe, publish };
+  return { subscribe, unsubscribe, publish, addEvent, events };
 })();
 
 export { pubsub };

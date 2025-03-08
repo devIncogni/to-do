@@ -14,24 +14,25 @@ import "./circle-outline.svg";
 import "./star-outline.svg";
 import "./calendar-month-outline.svg";
 import "./close.svg";
-import "./delete-forever-outline.svg"
+import "./delete-forever-outline.svg";
 
 // JS Imports
 import { ToDo } from "./to-do.js";
-import { TodoProjects, AllTasks, MyDay } from "./todo-projects.js";
+import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
+import "./dom-renderer.js";
 
 let abc = new ToDo("HW", "normal", "2025-02-15", "", "");
 console.log(abc);
 console.log(abc.dueToday());
 
-AllTasks.addToTaskList(abc);
-console.log(AllTasks.taskList[0]);
-MyDay.createListAutomatically(AllTasks.taskList);
-console.log(MyDay.taskList[0]);
+// AllTasks.addToTaskList(abc);
+// console.log(AllTasks.taskList[0]);
+// MyDay.createListAutomatically(AllTasks.taskList);
+// console.log(MyDay.taskList[0]);
 
-AllTasks.removeFromTaskList(abc);
-console.log(AllTasks.taskList[0]);
+// AllTasks.removeFromTaskList(abc);
+// console.log(AllTasks.taskList[0]);
 
 const datePickerTrigger = document.querySelector(".set-due-date");
 const dateInput = document.querySelector("#to-do-due-date");
@@ -41,4 +42,16 @@ console.log(dateInput);
 
 datePickerTrigger.addEventListener("click", () => {
   dateInput.showPicker();
+});
+
+const taskInputField = document.querySelector("#add-task");
+
+taskInputField.addEventListener("keydown", (e) => {
+  if (e.key == "Enter") {
+    pubsub.addEvent("ToDo-Added");
+    pubsub.publish("ToDo-Added", { todoName: e.target.value });
+    console.log(e.target.value);
+    console.log(pubsub.events);
+    e.target.value = "";
+  }
 });

@@ -6,7 +6,7 @@ class TodoProject {
   }
 
   addToTaskList(task) {
-    this._taskList.push(task);
+    this._taskList.unshift(task);
   }
 
   removeFromTaskList(task) {
@@ -18,8 +18,6 @@ class TodoProject {
   }
 }
 
-const AllTasks = new TodoProject("All Tasks");
-
 class MyDayProject extends TodoProject {
   constructor() {
     super("My Day");
@@ -30,6 +28,40 @@ class MyDayProject extends TodoProject {
   }
 }
 
+class ProjectsHolderTemplate {
+  constructor() {
+    this._projectList = [];
+  }
+
+  // _projectList = [
+  //   {
+  //     name: "All Tasks",
+  //     projectObject: AllTasks,
+  //   },
+  // ];
+
+  addToProjectList(...projects) {
+    for (const project of projects) {
+      this._projectList.push({
+        name: project.projectName,
+        projectObject: project,
+      });
+    }
+  }
+
+  removeFromProjectList(index) {
+    this._projectList.splice(index, 1);
+  }
+
+  get projectList() {
+    return this._projectList;
+  }
+}
+
+const AllTasks = new TodoProject("All Tasks");
 const MyDay = new MyDayProject();
 
-export { TodoProject, AllTasks, MyDay };
+const ProjectsHolder = new ProjectsHolderTemplate();
+ProjectsHolder.addToProjectList(AllTasks, MyDay);
+
+export { TodoProject, ProjectsHolder };
