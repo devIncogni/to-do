@@ -1,5 +1,7 @@
 import { ToDo } from "./to-do";
 import { ProjectsHolder } from "./todo-projects";
+import menuImage from "./menu.svg";
+import sunImage from "./sun-clock-outline.svg";
 
 const pubsub = (() => {
   const events = {};
@@ -46,10 +48,22 @@ export { pubsub };
 
 pubsub.addEvent("CREATED_TODO");
 pubsub.addEvent("CHANGE_TODO_PROJECT");
+pubsub.addEvent("SIDE_NAV_HAMBURGER_TOGGLE");
 
 // #endregion Adding Events
 
 // #region Adding Subscriptions
+
+// Hamburger Toggle Subscription
+pubsub.subscribe("SIDE_NAV_HAMBURGER_TOGGLE", (hamburgerData) => {
+  if (hamburgerData.clickedElement.querySelector("img").src == sunImage) {
+    return;
+  }
+  hamburgerData.sideNav.style.display =
+    hamburgerData.sideNav.style.display == "none" ? "flex" : "none";
+  hamburgerData.headMenuImage.src =
+    hamburgerData.headMenuImage.src == sunImage ? menuImage : sunImage;
+});
 
 // ToDo Creation Subscription
 pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {

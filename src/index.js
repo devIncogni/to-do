@@ -22,6 +22,19 @@ import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 import "./dom-renderer.js";
 
+// Logic to toggle the side menu
+const hamburgers = document.querySelectorAll(".hamburger");
+hamburgers.forEach((hamburger) => {
+  hamburger.addEventListener("click", (e) => {
+    const dataObject = {
+      clickedElement: e.target.closest(".hamburger"),
+      sideNav: document.querySelector(".side-nav-bar"),
+      headMenuImage: document.querySelector(".head-menu-image"),
+    };
+    pubsub.publish("SIDE_NAV_HAMBURGER_TOGGLE", dataObject);
+  });
+});
+
 // Logic to trigger the hidden date picker input
 const datePickerTrigger = document.querySelector(".set-due-date");
 const dateInput = document.querySelector("#to-do-due-date");
