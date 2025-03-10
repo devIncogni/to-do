@@ -1,3 +1,6 @@
+import { ToDo } from "./to-do";
+import { ProjectsHolder } from "./todo-projects";
+
 const pubsub = (() => {
   const events = {};
 
@@ -38,3 +41,31 @@ const pubsub = (() => {
 })();
 
 export { pubsub };
+
+// #region Adding Events
+
+pubsub.addEvent("CREATED_TODO");
+
+// #endregion Adding Events
+
+// #region Adding Subscriptions
+
+pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
+  let tempToDo = new ToDo(toDoCreationData.todoName);
+
+  ProjectsHolder.projectList[0].projectObject.addToTaskList(tempToDo);
+
+  for (const [index, project] of ProjectsHolder.projectList.entries()) {
+    if (project.name === toDoCreationData.todoActiveProject) {
+      if (project.name === "my-day") {
+        tempToDo.modifyDueDate(new Date());
+      }
+      project.projectObject.addToTaskList(tempToDo);
+      console.log(project.projectObject.taskList);
+      break;
+    }
+  }
+  console.log(ProjectsHolder.projectList[0].projectObject.taskList);
+});
+
+// #endregion Adding Subscriptions

@@ -2,8 +2,8 @@ import { format } from "date-fns";
 class ToDo {
   constructor(
     title,
-    importance = "normal",
     dueDate = "",
+    importance = "normal",
     notes = "",
     complete = false
   ) {
@@ -27,7 +27,7 @@ class ToDo {
   }
 
   modifyDueDate(dueDate) {
-    this.dueDate = dueDate;
+    this.dueDate = format(dueDate, "dd/MM/yyyy");
   }
 
   addNote(noteText) {

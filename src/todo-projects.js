@@ -20,7 +20,7 @@ class TodoProject {
 
 class MyDayProject extends TodoProject {
   constructor() {
-    super("My Day");
+    super("my-day");
   }
 
   createListAutomatically(taskList) {
@@ -39,6 +39,8 @@ class ProjectsHolderTemplate {
   //     projectObject: AllTasks,
   //   },
   // ];
+  // 
+  // _projectList[i][projectObject][functionName]
 
   addToProjectList(...projects) {
     for (const project of projects) {
@@ -58,7 +60,7 @@ class ProjectsHolderTemplate {
   }
 }
 
-const AllTasks = new TodoProject("All Tasks");
+const AllTasks = new TodoProject("all-tasks");
 const MyDay = new MyDayProject();
 
 const ProjectsHolder = new ProjectsHolderTemplate();

@@ -22,7 +22,7 @@ import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 import "./dom-renderer.js";
 
-let abc = new ToDo("HW", "normal", "2025-02-15", "", "");
+let abc = new ToDo("HW", "2025-02-15");
 console.log(abc);
 console.log(abc.dueToday());
 
@@ -48,10 +48,14 @@ const taskInputField = document.querySelector("#add-task");
 
 taskInputField.addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
-    pubsub.addEvent("ToDo-Added");
-    pubsub.publish("ToDo-Added", { todoName: e.target.value });
-    console.log(e.target.value);
-    console.log(pubsub.events);
+    const datObj = {
+      todoName: e.target.value,
+      todoTimeOfCreation: new Date(),
+      todoActiveProject: document.querySelector(".open-tab").id,
+    };
+    pubsub.publish("CREATED_TODO", datObj);
+    // console.log(datObj);
+    // console.log(pubsub.events);
     e.target.value = "";
   }
 });
