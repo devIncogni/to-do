@@ -45,11 +45,13 @@ export { pubsub };
 // #region Adding Events
 
 pubsub.addEvent("CREATED_TODO");
+pubsub.addEvent("CHANGE_TODO_PROJECT");
 
 // #endregion Adding Events
 
 // #region Adding Subscriptions
 
+// ToDo Creation Subscription
 pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   let tempToDo = new ToDo(toDoCreationData.todoName);
 
@@ -68,4 +70,16 @@ pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   console.log(ProjectsHolder.projectList[0].projectObject.taskList);
 });
 
+// Change ToDo Project Subscription
+pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
+  if (
+    changeProjectData.oldActiveProject.id ===
+    changeProjectData.newActiveProject.id
+  ) {
+    return;
+  } else {
+    changeProjectData.oldActiveProject.classList.toggle("open-tab");
+    changeProjectData.newActiveProject.classList.toggle("open-tab");
+  }
+});
 // #endregion Adding Subscriptions

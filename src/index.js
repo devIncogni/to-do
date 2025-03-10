@@ -22,18 +22,7 @@ import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 import "./dom-renderer.js";
 
-let abc = new ToDo("HW", "2025-02-15");
-console.log(abc);
-console.log(abc.dueToday());
-
-// AllTasks.addToTaskList(abc);
-// console.log(AllTasks.taskList[0]);
-// MyDay.createListAutomatically(AllTasks.taskList);
-// console.log(MyDay.taskList[0]);
-
-// AllTasks.removeFromTaskList(abc);
-// console.log(AllTasks.taskList[0]);
-
+// Logic to trigger the hidden date picker input
 const datePickerTrigger = document.querySelector(".set-due-date");
 const dateInput = document.querySelector("#to-do-due-date");
 
@@ -44,18 +33,32 @@ datePickerTrigger.addEventListener("click", () => {
   dateInput.showPicker();
 });
 
+// Logic to trigger event when something is entered in task input field
 const taskInputField = document.querySelector("#add-task");
 
 taskInputField.addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
-    const datObj = {
+    const dataObject = {
       todoName: e.target.value,
       todoTimeOfCreation: new Date(),
       todoActiveProject: document.querySelector(".open-tab").id,
     };
-    pubsub.publish("CREATED_TODO", datObj);
-    // console.log(datObj);
-    // console.log(pubsub.events);
+    pubsub.publish("CREATED_TODO", dataObject);
     e.target.value = "";
   }
+});
+
+// Logic to change the active ToDo Project
+const sideNavTabs = document.querySelectorAll(".side-nav-tab");
+
+sideNavTabs.forEach((tab) => {
+  tab.addEventListener("click", (e) => {
+    const dataObject = {
+      oldActiveProject: document.querySelector(".open-tab"),
+      newActiveProject: e.target.closest(".side-nav-tab"),
+    };
+    console.log(dataObject);
+
+    pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
+  });
 });
