@@ -49,6 +49,7 @@ export { pubsub };
 pubsub.addEvent("CREATED_TODO");
 pubsub.addEvent("CHANGE_TODO_PROJECT");
 pubsub.addEvent("SIDE_NAV_HAMBURGER_TOGGLE");
+pubsub.addEvent("CLOSE_TASK_DETAILS");
 
 // #endregion Adding Events
 
@@ -63,6 +64,11 @@ pubsub.subscribe("SIDE_NAV_HAMBURGER_TOGGLE", (hamburgerData) => {
     hamburgerData.sideNav.style.display == "none" ? "flex" : "none";
   hamburgerData.headMenuImage.src =
     hamburgerData.headMenuImage.src == sunImage ? menuImage : sunImage;
+});
+
+// Close task details subscription
+pubsub.subscribe("CLOSE_TASK_DETAILS", (taskDetailsDivData) => {
+  taskDetailsDivData.taskDetailsTab.style.display = "none";
 });
 
 // ToDo Creation Subscription

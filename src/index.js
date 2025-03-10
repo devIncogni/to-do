@@ -35,6 +35,16 @@ hamburgers.forEach((hamburger) => {
   });
 });
 
+// Logic to toggle task details menu
+const closeTaskCardButton = document.querySelector(".close-task-card > img");
+closeTaskCardButton.addEventListener("click", (e) => {
+  const dataObj = {
+    clickedElement: e.target,
+    taskDetailsTab: document.querySelector(".task-details"),
+  };
+  pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
+});
+
 // Logic to trigger the hidden date picker input
 const datePickerTrigger = document.querySelector(".set-due-date");
 const dateInput = document.querySelector("#to-do-due-date");
