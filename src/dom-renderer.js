@@ -1,7 +1,7 @@
 import { pubsub } from "./pubsub";
 import circleOutline from "./circle-outline.svg";
 import starOutline from "./star-outline.svg";
-import { ProjectsHolder } from "./todo-projects";
+import { AllTasks } from "./todo-projects";
 
 class ToDoRenderer {
   constructor(toDoProject, taskListRenderDiv, taskDetailsRenderDiv) {
@@ -40,11 +40,22 @@ class ToDoRenderer {
     });
   }
 
-  renderTaskDetials(index) {}
+  renderTaskDetials(taskDetailsDivObject, todoDetailsObject) {
+    taskDetailsDivObject.titleDiv.querySelector("#task-title-text-box").value =
+      todoDetailsObject.title;
+
+    taskDetailsDivObject.dueDateDiv.querySelector("p").value =
+      todoDetailsObject.dueDate == ""
+        ? "Set due date"
+        : todoDetailsObject.dueDate;
+
+    taskDetailsDivObject.notesDiv.querySelector("#todo-notes").value =
+      todoDetailsObject.notes;
+  }
 }
 
 const AllTaskRenderer = new ToDoRenderer(
-  ProjectsHolder.projectList[0].projectObject,
+  AllTasks,
   document.querySelector(".task-list")
 );
 // AllTaskRenderer.renderTaskList();

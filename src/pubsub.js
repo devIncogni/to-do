@@ -1,7 +1,7 @@
 import { ToDo } from "./to-do";
-import { ProjectsHolder } from "./todo-projects";
 import menuImage from "./menu.svg";
 import sunImage from "./sun-clock-outline.svg";
+import { AllTasks } from "./todo-projects";
 
 const pubsub = (() => {
   const events = {};
@@ -50,6 +50,7 @@ pubsub.addEvent("CREATED_TODO");
 pubsub.addEvent("CHANGE_TODO_PROJECT");
 pubsub.addEvent("SIDE_NAV_HAMBURGER_TOGGLE");
 pubsub.addEvent("CLOSE_TASK_DETAILS");
+pubsub.addEvent("CLICKED_TODO");
 
 // #endregion Adding Events
 
@@ -75,22 +76,24 @@ pubsub.subscribe("CLOSE_TASK_DETAILS", (taskDetailsDivData) => {
 pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   let tempToDo = new ToDo(toDoCreationData.todoName);
 
-  ProjectsHolder.projectList[0].projectObject.addToTaskList(tempToDo);
+  AllTasks.addToTaskList(tempToDo);
 
-  for (const [index, project] of ProjectsHolder.projectList.entries()) {
-    if (index == 0) {
-      continue;
-    }
-    if (project.name === toDoCreationData.todoActiveProject) {
-      if (project.name === "my-day") {
-        tempToDo.modifyDueDate(new Date());
-      }
-      project.projectObject.addToTaskList(tempToDo);
-      console.log(project.projectObject.taskList);
-      break;
-    }
-  }
-  console.log(ProjectsHolder.projectList[0].projectObject.taskList);
+  // ProjectsHolder.projectList[0].projectObject.addToTaskList(tempToDo);
+
+  // for (const [index, project] of ProjectsHolder.projectList.entries()) {
+  //   if (index == 0) {
+  //     continue;
+  //   }
+  //   if (project.name === toDoCreationData.todoActiveProject) {
+  //     if (project.name === "my-day") {
+  //       tempToDo.modifyDueDate(new Date());
+  //     }
+  //     project.projectObject.addToTaskList(tempToDo);
+  //     console.log(project.projectObject.taskList);
+  //     break;
+  //   }
+  // }
+  // console.log(ProjectsHolder.projectList[0].projectObject.taskList);
 });
 
 // Change ToDo Project Subscription
@@ -105,4 +108,7 @@ pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
     changeProjectData.newActiveProject.classList.toggle("open-tab");
   }
 });
+
+// ToDo click subscription
+pubsub.subscribe("CLICKED_TODO", (clickeTodoData) => {});
 // #endregion Adding Subscriptions

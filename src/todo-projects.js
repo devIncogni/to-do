@@ -1,6 +1,5 @@
 class TodoProject {
   constructor(projectName) {
-    // super();
     this.projectName = projectName;
     this._taskList = [];
   }
@@ -18,52 +17,53 @@ class TodoProject {
   }
 }
 
-class MyDayProject extends TodoProject {
-  constructor() {
-    super("my-day");
-  }
+// class MyDayProject extends TodoProject {
+//   constructor() {
+//     super("my-day");
+//   }
 
-  createListAutomatically(taskList) {
-    this._taskList = taskList.filter((t) => t.dueToday());
-  }
-}
+//   createListAutomatically(taskList) {
+//     this._taskList = taskList.filter((t) => t.dueToday());
+//   }
+// }
 
-class ProjectsHolderTemplate {
-  constructor() {
-    this._projectList = [];
-  }
+// class ProjectsHolderTemplate {
+//   constructor() {
+//     this._projectList = [];
+//   }
 
-  // _projectList = [
-  //   {
-  //     name: "All Tasks",
-  //     projectObject: AllTasks,
-  //   },
-  // ];
-  // 
-  // _projectList[i][projectObject][functionName]
+//   // _projectList = [
+//   //   {
+//   //     name: "All Tasks",
+//   //     projectObject: AllTasks,
+//   //   },
+//   // ];
+//   // 
+//   // _projectList[i][projectObject][functionName]
 
-  addToProjectList(...projects) {
-    for (const project of projects) {
-      this._projectList.push({
-        name: project.projectName,
-        projectObject: project,
-      });
-    }
-  }
+//   addToProjectList(...projects) {
+//     for (const project of projects) {
+//       this._projectList.push({
+//         name: project.projectName,
+//         projectObject: project,
+//       });
+//     }
+//   }
 
-  removeFromProjectList(index) {
-    this._projectList.splice(index, 1);
-  }
+//   removeFromProjectList(index) {
+//     this._projectList.splice(index, 1);
+//   }
 
-  get projectList() {
-    return this._projectList;
-  }
-}
+//   get projectList() {
+//     return this._projectList;
+//   }
+// }
 
 const AllTasks = new TodoProject("all-tasks");
-const MyDay = new MyDayProject();
+// const MyDay = new MyDayProject();
 
-const ProjectsHolder = new ProjectsHolderTemplate();
-ProjectsHolder.addToProjectList(AllTasks, MyDay);
+// const ProjectsHolder = new ProjectsHolderTemplate();
+// ProjectsHolder.addToProjectList(AllTasks, MyDay);
 
-export { TodoProject, ProjectsHolder };
+// export { TodoProject, ProjectsHolder };
+export {AllTasks}
