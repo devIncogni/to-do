@@ -77,23 +77,6 @@ pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   let tempToDo = new ToDo(toDoCreationData.todoName);
 
   AllTasks.addToTaskList(tempToDo);
-
-  // ProjectsHolder.projectList[0].projectObject.addToTaskList(tempToDo);
-
-  // for (const [index, project] of ProjectsHolder.projectList.entries()) {
-  //   if (index == 0) {
-  //     continue;
-  //   }
-  //   if (project.name === toDoCreationData.todoActiveProject) {
-  //     if (project.name === "my-day") {
-  //       tempToDo.modifyDueDate(new Date());
-  //     }
-  //     project.projectObject.addToTaskList(tempToDo);
-  //     console.log(project.projectObject.taskList);
-  //     break;
-  //   }
-  // }
-  // console.log(ProjectsHolder.projectList[0].projectObject.taskList);
 });
 
 // Change ToDo Project Subscription

@@ -54,17 +54,9 @@ class ToDoRenderer {
   }
 }
 
-const AllTaskRenderer = new ToDoRenderer(
+const TaskRenderer = new ToDoRenderer(
   AllTasks,
   document.querySelector(".task-list")
 );
-// AllTaskRenderer.renderTaskList();
-export { AllTaskRenderer };
 
-console.log(AllTaskRenderer);
-
-class ToDoDOMManager {
-  constructor() {}
-}
-
-// pubsub.subscribe("ToDoCreated", renderTaskList())
+export { TaskRenderer as AllTaskRenderer };
