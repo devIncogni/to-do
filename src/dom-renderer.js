@@ -61,6 +61,11 @@ class ToDoRenderer {
   }
 
   renderTaskDetials(todo) {
+    this.taskDetailsRenderDiv.setAttribute(
+      "data-index",
+      this.toDoProject.taskList.indexOf(todo)
+    );
+
     this.taskDetailsRenderDiv.querySelector("#task-title-text-box").value =
       todo.title;
 
@@ -70,7 +75,7 @@ class ToDoRenderer {
     this.taskDetailsRenderDiv.querySelector("#todo-notes").value = todo.notes;
 
     this.taskDetailsRenderDiv.querySelector(".close-task-card>p").textContent =
-      "Created: "+todo.creationDate;
+      "Created: " + todo.creationDate;
   }
 }
 
