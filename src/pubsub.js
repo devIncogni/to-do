@@ -78,6 +78,9 @@ pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   ProjectsHolder.projectList[0].projectObject.addToTaskList(tempToDo);
 
   for (const [index, project] of ProjectsHolder.projectList.entries()) {
+    if (index == 0) {
+      continue;
+    }
     if (project.name === toDoCreationData.todoActiveProject) {
       if (project.name === "my-day") {
         tempToDo.modifyDueDate(new Date());

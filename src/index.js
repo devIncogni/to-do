@@ -21,6 +21,7 @@ import { ToDo } from "./to-do.js";
 import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 import "./dom-renderer.js";
+import { AllTaskRenderer } from "./dom-renderer.js";
 
 // Logic to toggle the side menu
 const hamburgers = document.querySelectorAll(".hamburger");
@@ -68,6 +69,7 @@ taskInputField.addEventListener("keydown", (e) => {
     };
     pubsub.publish("CREATED_TODO", dataObject);
     e.target.value = "";
+    AllTaskRenderer.renderTaskList();
   }
 });
 
@@ -85,3 +87,11 @@ sideNavTabs.forEach((tab) => {
     pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
   });
 });
+
+const dataObject = {
+  todoName: "ABCE",
+  todoTimeOfCreation: new Date(),
+  todoActiveProject: document.querySelector(".open-tab").id,
+};
+pubsub.publish("CREATED_TODO", dataObject);
+AllTaskRenderer.renderTaskList();
