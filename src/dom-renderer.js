@@ -68,6 +68,9 @@ class ToDoRenderer {
       todo.dueDate == "" ? "Set due date" : todo.dueDate;
 
     this.taskDetailsRenderDiv.querySelector("#todo-notes").value = todo.notes;
+
+    this.taskDetailsRenderDiv.querySelector(".close-task-card>p").textContent =
+      "Created: "+todo.creationDate;
   }
 }
 

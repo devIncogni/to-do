@@ -22,6 +22,12 @@ import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 import "./dom-renderer.js";
 import { AllTaskRenderer } from "./dom-renderer.js";
+import { format } from "date-fns";
+
+// Update Todays Date in the header
+const datePara = document.querySelector(".date-holder > p");
+// console.log(datePara);
+datePara.textContent = format(new Date(), "eeee, LLLL do");
 
 // Logic to toggle the side menu
 const hamburgers = document.querySelectorAll(".hamburger");
