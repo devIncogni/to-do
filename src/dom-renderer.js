@@ -25,6 +25,10 @@ class ToDoRenderer {
       const markImportantImage = document.createElement("img");
 
       taskDiv.classList.add("task");
+      taskDiv.setAttribute(
+        "data-index",
+        this.toDoProject.taskList.indexOf(task)
+      );
       taskImageDiv.classList.add("task-image");
       taskTitleDiv.classList.add("task-title");
       taskMarkImportantDiv.classList.add("mark-important");
@@ -39,27 +43,38 @@ class ToDoRenderer {
 
       taskDiv.append(taskImageDiv, taskTitleDiv, taskMarkImportantDiv);
 
+      taskDiv.addEventListener("click", (e) => {
+        const dataObj = {
+          clickedElement: e.target.closest(".task"),
+          index: e.target.closest(".task").getAttribute("data-index"),
+          todoActiveProjectName: document.querySelector(".open-tab"),
+          taskDetailsDiv: document.querySelector(".task-details"),
+
+          // taskObject:
+        };
+        pubsub.publish("CLICKED_TODO", dataObj);
+        console.log(dataObj);
+      });
+
       this.taskListRenderDiv.append(taskDiv);
     });
   }
 
-  renderTaskDetials(taskDetailsDivObject, todoDetailsObject) {
-    taskDetailsDivObject.titleDiv.querySelector("#task-title-text-box").value =
-      todoDetailsObject.title;
+  renderTaskDetials(todo) {
+    this.taskDetailsRenderDiv.querySelector("#task-title-text-box").value =
+      todo.title;
 
-    taskDetailsDivObject.dueDateDiv.querySelector("p").value =
-      todoDetailsObject.dueDate == ""
-        ? "Set due date"
-        : todoDetailsObject.dueDate;
+    this.taskDetailsRenderDiv.querySelector("#due-date-para").value =
+      todo.dueDate == "" ? "Set due date" : todo.dueDate;
 
-    taskDetailsDivObject.notesDiv.querySelector("#todo-notes").value =
-      todoDetailsObject.notes;
+    this.taskDetailsRenderDiv.querySelector("#todo-notes").value = todo.notes;
   }
 }
 
 const TaskRenderer = new ToDoRenderer(
   AllTasks,
-  document.querySelector(".task-list")
+  document.querySelector(".task-list"),
+  document.querySelector(".task-details")
 );
 
 export { TaskRenderer as AllTaskRenderer };

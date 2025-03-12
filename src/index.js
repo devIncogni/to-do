@@ -87,25 +87,3 @@ sideNavTabs.forEach((tab) => {
     pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
   });
 });
-
-// const dataObject = {
-//   todoName: "ABCE",
-//   todoTimeOfCreation: new Date(),
-//   todoActiveProject: document.querySelector(".open-tab").id,
-// };
-// pubsub.publish("CREATED_TODO", dataObject);
-// AllTaskRenderer.renderTaskList();
-
-// Logic to activate task details upon a task being clicked
-const task = document.querySelector(".task");
-
-task.addEventListener("click", (e) => {
-  const dataObj = {
-    clickedElement: e.target.closest(".task"),
-    index: e.target.closest(".task").getAttribute("data-index"),
-    todoActiveProject: document.querySelector(".open-tab"),
-    // taskObject:
-  };
-  pubsub.publish("CLICKED_TODO", dataObj);
-  console.log(dataObj);
-});

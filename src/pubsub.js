@@ -101,5 +101,9 @@ pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
 });
 
 // ToDo click subscription
-pubsub.subscribe("CLICKED_TODO", (clickeTodoData) => {});
+pubsub.subscribe("CLICKED_TODO", (clickedTodoData) => {
+  // console.log(clickedTodoData);
+  AllTaskRenderer.renderTaskDetials(AllTasks.taskList[clickedTodoData.index]);
+  clickedTodoData.taskDetailsDiv.style.display = "flex";
+});
 // #endregion Adding Subscriptions
