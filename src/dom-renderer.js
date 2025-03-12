@@ -58,5 +58,5 @@ const TaskRenderer = new ToDoRenderer(
   AllTasks,
   document.querySelector(".task-list")
 );
-
+  
 export { TaskRenderer as AllTaskRenderer };

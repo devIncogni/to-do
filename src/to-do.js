@@ -2,6 +2,7 @@ import { format } from "date-fns";
 class ToDo {
   constructor(
     title,
+    projects = [],
     dueDate = "",
     importance = "normal",
     notes = "",
@@ -13,6 +14,7 @@ class ToDo {
     this.dueDate = dueDate != "" ? format(dueDate, "dd/MM/yyyy") : "";
     this.notes = notes;
     this.complete = complete;
+    this._projects = projects;
   }
 
   get creationDate() {
@@ -28,6 +30,14 @@ class ToDo {
 
   modifyDueDate(dueDate) {
     this.dueDate = format(dueDate, "dd/MM/yyyy");
+  }
+
+  get projects() {
+    return this._projects;
+  }
+
+  makePartOf(project) {
+    this._projects.push(project);
   }
 
   addNote(noteText) {

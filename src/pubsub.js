@@ -75,6 +75,11 @@ pubsub.subscribe("CLOSE_TASK_DETAILS", (taskDetailsDivData) => {
 // ToDo Creation Subscription
 pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   let tempToDo = new ToDo(toDoCreationData.todoName);
+  tempToDo.makePartOf(toDoCreationData.todoActiveProject);
+  if (!tempToDo.projects.includes("all-tasks")) {
+    tempToDo.makePartOf("all-tasks");
+  }
+  console.log(tempToDo);
 
   AllTasks.addToTaskList(tempToDo);
 });
