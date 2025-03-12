@@ -10,9 +10,12 @@ class ToDoRenderer {
     this.taskDetailsRenderDiv = taskDetailsRenderDiv;
   }
 
-  renderTaskList() {
+  renderTaskList(projectName) {
+    const renderableTaskList = this.toDoProject.taskList.filter((tasks) =>
+      tasks.projects.includes(projectName)
+    );
     this.taskListRenderDiv.textContent = "";
-    this.toDoProject.taskList.forEach((task) => {
+    renderableTaskList.forEach((task) => {
       const taskDiv = document.createElement("div");
       const taskImageDiv = document.createElement("div");
       const taskTitleDiv = document.createElement("div");
@@ -58,5 +61,5 @@ const TaskRenderer = new ToDoRenderer(
   AllTasks,
   document.querySelector(".task-list")
 );
-  
+
 export { TaskRenderer as AllTaskRenderer };

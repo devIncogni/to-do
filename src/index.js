@@ -69,8 +69,6 @@ taskInputField.addEventListener("keydown", (e) => {
     };
     pubsub.publish("CREATED_TODO", dataObject);
     e.target.value = "";
-
-    AllTaskRenderer.renderTaskList();
   }
 });
 
@@ -82,6 +80,7 @@ sideNavTabs.forEach((tab) => {
     const dataObject = {
       oldActiveProject: document.querySelector(".open-tab"),
       newActiveProject: e.target.closest(".side-nav-tab"),
+      activeProjectName: e.target.closest(".side-nav-tab").id,
     };
     console.log(dataObject);
 

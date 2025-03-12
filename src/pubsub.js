@@ -2,6 +2,7 @@ import { ToDo } from "./to-do";
 import menuImage from "./menu.svg";
 import sunImage from "./sun-clock-outline.svg";
 import { AllTasks } from "./todo-projects";
+import { AllTaskRenderer } from "./dom-renderer";
 
 const pubsub = (() => {
   const events = {};
@@ -82,6 +83,7 @@ pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   console.log(tempToDo);
 
   AllTasks.addToTaskList(tempToDo);
+  AllTaskRenderer.renderTaskList(toDoCreationData.todoActiveProject);
 });
 
 // Change ToDo Project Subscription
@@ -95,6 +97,7 @@ pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
     changeProjectData.oldActiveProject.classList.toggle("open-tab");
     changeProjectData.newActiveProject.classList.toggle("open-tab");
   }
+  AllTaskRenderer.renderTaskList(changeProjectData.activeProjectName);
 });
 
 // ToDo click subscription
