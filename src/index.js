@@ -79,18 +79,38 @@ taskInputField.addEventListener("keydown", (e) => {
 });
 
 // Logic to change the active ToDo Project
-const sideNavTabs = document.querySelectorAll(".side-nav-tab");
+// const sideNavTabs = document.querySelectorAll(".side-nav-tab");
 
-sideNavTabs.forEach((tab) => {
-  tab.addEventListener("click", (e) => {
-    const dataObject = {
-      oldActiveProject: document.querySelector(".open-tab"),
-      newActiveProject: e.target.closest(".side-nav-tab"),
-      activeProjectName: e.target.closest(".side-nav-tab").id,
-      textInputField: document.querySelector("#add-task"),
-    };
-    console.log(dataObject);
+// sideNavTabs.forEach((tab) => {
+//   tab.addEventListener("click", (e) => {
+//     const dataObject = {
+//       oldActiveProject: document.querySelector(".open-tab"),
+//       newActiveProject: e.target.closest(".side-nav-tab"),
+//       activeProjectName: e.target.closest(".side-nav-tab").id,
+//       textInputField: document.querySelector("#add-task"),
+//     };
+//     console.log(dataObject);
 
-    pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
-  });
+//     pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
+//   });
+// });
+
+const sideNavBar = document.querySelector(".side-nav-bar");
+
+sideNavBar.addEventListener("click", (e) => {
+  const target = e.target.closest("div");
+  const dataObject = {
+    oldActiveProject: document.querySelector(".open-tab"),
+    newActiveProject: target,
+    activeProjectName: target.id,
+    textInputField: document.querySelector("#add-task"),
+  };
+  switch (target.className) {
+    case "side-nav-tab":
+      pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
+      break;
+
+    default:
+      break;
+  }
 });
