@@ -211,5 +211,16 @@ notesTextArea.addEventListener("input", (e) => {
     todoActiveProjectName: document.querySelector(".open-tab").id,
     noteValue: e.target.value,
   };
-  pubsub.publish("TODO_NOTE_EDITED", dataObj)
+  pubsub.publish("TODO_NOTE_EDITED", dataObj);
+});
+
+// Logic to change the title of task
+const taskTitleInput = document.querySelector("#task-title-text-box");
+taskTitleInput.addEventListener("input", (e) => {
+  let dataObj = {
+    index: taskDetailsDiv.getAttribute("data-index"),
+    todoActiveProjectName: document.querySelector(".open-tab").id,
+    titleValue: e.target.value,
+  };
+  pubsub.publish("TODO_TITLE_CHANGED", dataObj);
 });

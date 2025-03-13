@@ -173,4 +173,14 @@ pubsub.subscribe("TODO_NOTE_EDITED", (dataObj) => {
   AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
   AllTaskRenderer.renderTaskDetials(task);
 });
+
+// Todo Tilte change subscription
+pubsub.subscribe("TODO_TITLE_CHANGED", (dataObj) => {
+  let task = AllTasks.taskList[dataObj.index];
+  task.changeTitle(dataObj.titleValue);
+
+  AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
+  AllTaskRenderer.renderTaskDetials(task);
+});
+
 // #endregion Adding Subscriptions
