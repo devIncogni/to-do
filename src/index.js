@@ -42,7 +42,7 @@ hamburgers.forEach((hamburger) => {
   });
 });
 
-// Logic to toggle task details menu
+// Logic to close task details menu
 const closeTaskCardButton = document.querySelector(".close-task-card > img");
 closeTaskCardButton.addEventListener("click", (e) => {
   const dataObj = {
@@ -79,22 +79,6 @@ taskInputField.addEventListener("keydown", (e) => {
 });
 
 // Logic to change the active ToDo Project
-// const sideNavTabs = document.querySelectorAll(".side-nav-tab");
-
-// sideNavTabs.forEach((tab) => {
-//   tab.addEventListener("click", (e) => {
-//     const dataObject = {
-//       oldActiveProject: document.querySelector(".open-tab"),
-//       newActiveProject: e.target.closest(".side-nav-tab"),
-//       activeProjectName: e.target.closest(".side-nav-tab").id,
-//       textInputField: document.querySelector("#add-task"),
-//     };
-//     console.log(dataObject);
-
-//     pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
-//   });
-// });
-
 const sideNavBar = document.querySelector(".side-nav-bar");
 
 sideNavBar.addEventListener("click", (e) => {
@@ -110,6 +94,32 @@ sideNavBar.addEventListener("click", (e) => {
       pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
       break;
 
+    default:
+      break;
+  }
+});
+
+// Logic to activate various to-do functions
+const taskHolderDiv = document.querySelector(".task-list");
+taskHolderDiv.addEventListener("click", (e) => {
+  const target = e.target.closest("div");
+
+  const dataObj = {
+    clickedElement: target,
+    index: e.target.closest(".task").getAttribute("data-index"),
+    todoActiveProjectName: document.querySelector(".open-tab").id,
+    taskDetailsDiv: document.querySelector(".task-details"),
+  };
+
+  switch (target.className) {
+    case "task":
+    case "task-title":
+      pubsub.publish("CLICKED_TODO", dataObj);
+      break;
+    case "mark-important":
+      pubsub.publish("MARK_IMPORTANT_CLICKED", dataObj);
+      break;
+    case "task-image":
     default:
       break;
   }

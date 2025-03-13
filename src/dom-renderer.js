@@ -45,35 +45,6 @@ class ToDoRenderer {
 
       taskDiv.append(taskImageDiv, taskTitleDiv, taskMarkImportantDiv);
 
-      taskDiv.addEventListener("click", (e) => {
-        const target = e.target.closest("div");
-
-        const dataObj = {
-          clickedElement: target,
-          index: e.target.closest(".task").getAttribute("data-index"),
-          todoActiveProjectName: document.querySelector(".open-tab").id,
-          taskDetailsDiv: document.querySelector(".task-details"),
-        };
-        console.log(target.className);
-
-        switch (target.className) {
-          case "task":
-          case "task-title":
-            pubsub.publish("CLICKED_TODO", dataObj);
-            break;
-          case "mark-important":
-            pubsub.publish("MARK_IMPORTANT_CLICKED", dataObj);
-            console.log("Mark Impr");
-            break;
-          case "task-image":
-          default:
-            break;
-        }
-
-        // pubsub.publish("CLICKED_TODO", dataObj);
-        // console.log(dataObj);
-      });
-
       this.taskListRenderDiv.append(taskDiv);
     });
   }
