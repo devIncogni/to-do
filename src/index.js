@@ -43,14 +43,14 @@ hamburgers.forEach((hamburger) => {
 });
 
 // Logic to close task details menu
-const closeTaskCardButton = document.querySelector(".close-task-card > img");
-closeTaskCardButton.addEventListener("click", (e) => {
-  const dataObj = {
-    clickedElement: e.target,
-    taskDetailsTab: document.querySelector(".task-details"),
-  };
-  pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
-});
+// const closeTaskCardButton = document.querySelector(".close-task-card > img");
+// closeTaskCardButton.addEventListener("click", (e) => {
+//   const dataObj = {
+//     clickedElement: e.target,
+//     taskDetailsTab: document.querySelector(".task-details"),
+//   };
+//   pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
+// });
 
 // Logic to trigger the hidden date picker input
 const datePickerTrigger = document.querySelector(".set-due-date");
@@ -131,3 +131,20 @@ taskHolderDiv.addEventListener("click", (e) => {
 
 // Logic to activate various task-details functions
 const taskDetailsDiv = document.querySelector(".task-details");
+
+taskDetailsDiv.addEventListener("click", (e) => {
+  const target = e.target.closest("div");
+  switch (target.className) {
+    case "close-task-details-image":
+      const dataObj = {
+        clickedElement: e.target,
+        taskDetailsTab: document.querySelector(".task-details"),
+      };
+      pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
+      break;
+  
+    default:
+      break;
+  }
+  console.log(target);
+});

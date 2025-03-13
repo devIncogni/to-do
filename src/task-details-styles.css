@@ -38,7 +38,7 @@
     font-size: 0.5rem;
 }
 
-.close-task-card>img {
+.close-task-details-image {
     cursor: pointer;
     padding: 0.2rem;
 }
