@@ -29,7 +29,6 @@ class ToDo {
   }
 
   modifyDueDate(dueDate) {
-    
     dueDate = parse(dueDate, "yyyy-MM-dd", new Date());
     console.log(dueDate);
     console.log(isValid(dueDate));
@@ -71,7 +70,16 @@ class ToDo {
   }
 
   toggleComplete() {
-    this.complete = this.complete == true ? false : true;
+    if (this.complete) {
+      this.complete = false;
+      this.removeFrom("complete");
+      console.log("Setting to not complete");
+    }
+    else if (!this.complete) {
+      this.complete = true;
+      console.log("Setting to complete");
+      this.makePartOf("complete");
+    }
   }
 
   toggleImportance() {

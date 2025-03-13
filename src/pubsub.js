@@ -183,4 +183,14 @@ pubsub.subscribe("TODO_TITLE_CHANGED", (dataObj) => {
   AllTaskRenderer.renderTaskDetials(task);
 });
 
+// Todo complete toggle subscription
+pubsub.subscribe("TASK_TOGGLE_COMPLETE", (dataObj) => {
+  let task = AllTasks.taskList[dataObj.index];
+  task.toggleComplete();
+  console.log(task.complete);
+
+  AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
+  AllTaskRenderer.renderTaskDetials(task);
+});
+
 // #endregion Adding Subscriptions

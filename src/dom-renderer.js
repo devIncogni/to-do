@@ -39,16 +39,20 @@ class ToDoRenderer {
 
       taskTitlePara.classList.add("task-title");
 
-      if (task.complete) {
-        taskImageDiv.style.background = "url(" + checkCircle + ")";
-      }
-
       markImportantImage.src =
         task.importance == "important" ? star : starOutline;
 
       taskMarkImportantDiv.append(markImportantImage);
 
       taskTitlePara.textContent = task.title;
+
+      if (task.complete) {
+        taskImageDiv.style.background = "url(" + checkCircle + ")";
+        taskTitlePara.style.textDecoration = "line-through";
+        taskTitlePara.style.textDecorationThickness = "0.1rem";
+        taskTitlePara.style.textDecorationColor = "#000000";
+        taskTitlePara.style.color = "#505050";
+      }
 
       taskTitleAndDueDateDiv.append(taskTitlePara);
 
@@ -79,8 +83,27 @@ class ToDoRenderer {
       this.toDoProject.taskList.indexOf(todo)
     );
 
-    this.taskDetailsRenderDiv.querySelector("#task-title-text-box").value =
-      todo.title;
+    let taskTitlePara = this.taskDetailsRenderDiv.querySelector(
+      "#task-title-text-box"
+    );
+    let taskImageDiv = this.taskDetailsRenderDiv.querySelector(".task-image");
+
+    taskTitlePara.value = todo.title;
+
+    if (todo.complete) {
+      taskImageDiv.style.background = "url(" + checkCircle + ")";
+      taskTitlePara.style.textDecoration = "line-through";
+      taskTitlePara.style.textDecorationThickness = "0.1rem";
+      taskTitlePara.style.textDecorationColor = "#000000";
+      taskTitlePara.style.color = "#505050";
+    }else {
+      taskImageDiv.style.background = "";
+      taskTitlePara.style.textDecoration = "";
+      taskTitlePara.style.textDecorationThickness = "";
+      taskTitlePara.style.textDecorationColor = "";
+      taskTitlePara.style.color = "";
+
+    }
 
     // Rendering Importance
     this.taskDetailsRenderDiv.querySelector(

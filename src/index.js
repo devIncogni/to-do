@@ -123,6 +123,13 @@ taskHolderDiv.addEventListener("click", (e) => {
       pubsub.publish("MARK_IMPORTANT_CLICKED", dataObj);
       break;
     case "task-image":
+      dataObj = {
+        index: e.target.closest(".task").getAttribute("data-index"),
+        taskDetailsTab: document.querySelector(".task-details"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+      };
+      pubsub.publish("TASK_TOGGLE_COMPLETE", dataObj);
+      break;
     default:
       break;
   }
@@ -183,6 +190,15 @@ taskDetailsDiv.addEventListener("click", (e) => {
       pubsub.publish("DELETE_TASK", dataObj);
       pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
 
+      break;
+
+    case "task-image":
+      dataObj = {
+        index: taskDetailsDiv.getAttribute("data-index"),
+        taskDetailsTab: document.querySelector(".task-details"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+      };
+      pubsub.publish("TASK_TOGGLE_COMPLETE", dataObj);
       break;
 
     default:
