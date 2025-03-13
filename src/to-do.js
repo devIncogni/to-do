@@ -37,7 +37,17 @@ class ToDo {
   }
 
   makePartOf(project) {
-    this._projects.push(project);
+    const indexOfProject = this._projects.indexOf(project);
+    if (!(indexOfProject >= 0)) {
+      this._projects.push(project);
+    }
+  }
+  removeFrom(project) {
+    const indexOfProject = this._projects.indexOf(project);
+    if (indexOfProject >= 0) {
+      this._projects.splice(this._projects.indexOf(project), 1);
+    }
+    return;
   }
 
   addNote(noteText) {
@@ -53,7 +63,18 @@ class ToDo {
   }
 
   toggleImportance() {
-    this.importance = this.importance == "normal" ? "important" : "normal";
+    // this.importance = this.importance == "normal" ? "important" : "normal";
+    switch (this.importance) {
+      case "normal":
+        this.importance = "important";
+        this.makePartOf("important");
+        break;
+      case "important":
+        this.importance = "normal";
+        this.removeFrom("important");
+      default:
+        break;
+    }
   }
 }
 

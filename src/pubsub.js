@@ -3,6 +3,8 @@ import menuImage from "./menu.svg";
 import sunImage from "./sun-clock-outline.svg";
 import { AllTasks } from "./todo-projects";
 import { AllTaskRenderer } from "./dom-renderer";
+import starOutline from "./star-outline.svg";
+import star from "./star.svg";
 
 const pubsub = (() => {
   const events = {};
@@ -52,6 +54,7 @@ pubsub.addEvent("CHANGE_TODO_PROJECT");
 pubsub.addEvent("SIDE_NAV_HAMBURGER_TOGGLE");
 pubsub.addEvent("CLOSE_TASK_DETAILS");
 pubsub.addEvent("CLICKED_TODO");
+pubsub.addEvent("MARK_IMPORTANT_CLICKED");
 
 // #endregion Adding Events
 
@@ -77,6 +80,10 @@ pubsub.subscribe("CLOSE_TASK_DETAILS", (taskDetailsDivData) => {
 pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
   let tempToDo = new ToDo(toDoCreationData.todoName);
   tempToDo.makePartOf(toDoCreationData.todoActiveProject);
+
+  if (toDoCreationData.todoActiveProject == "important") {
+    tempToDo.toggleImportance();
+  }
   if (!tempToDo.projects.includes("all-tasks")) {
     tempToDo.makePartOf("all-tasks");
   }
@@ -97,6 +104,7 @@ pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
     changeProjectData.oldActiveProject.classList.toggle("open-tab");
     changeProjectData.newActiveProject.classList.toggle("open-tab");
   }
+  changeProjectData.textInputField.focus();
   AllTaskRenderer.renderTaskList(changeProjectData.activeProjectName);
 });
 
@@ -105,5 +113,14 @@ pubsub.subscribe("CLICKED_TODO", (clickedTodoData) => {
   // console.log(clickedTodoData);
   AllTaskRenderer.renderTaskDetials(AllTasks.taskList[clickedTodoData.index]);
   clickedTodoData.taskDetailsDiv.style.display = "flex";
+});
+
+// Mark important subscription
+pubsub.subscribe("MARK_IMPORTANT_CLICKED", (dataObj) => {
+  AllTasks.taskList[dataObj.index].toggleImportance();
+  AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
+  console.log(dataObj.todoActiveProjectName);
+
+  AllTaskRenderer.renderTaskDetials(AllTasks.taskList[dataObj.index]);
 });
 // #endregion Adding Subscriptions

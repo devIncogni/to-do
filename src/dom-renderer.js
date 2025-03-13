@@ -1,6 +1,7 @@
 import { pubsub } from "./pubsub";
 import circleOutline from "./circle-outline.svg";
 import starOutline from "./star-outline.svg";
+import star from "./star.svg";
 import { AllTasks } from "./todo-projects";
 
 class ToDoRenderer {
@@ -34,7 +35,8 @@ class ToDoRenderer {
       taskMarkImportantDiv.classList.add("mark-important");
 
       taskImage.src = circleOutline;
-      markImportantImage.src = starOutline;
+      markImportantImage.src =
+        task.importance == "important" ? star : starOutline;
 
       taskImageDiv.append(taskImage);
       taskMarkImportantDiv.append(markImportantImage);
@@ -44,16 +46,32 @@ class ToDoRenderer {
       taskDiv.append(taskImageDiv, taskTitleDiv, taskMarkImportantDiv);
 
       taskDiv.addEventListener("click", (e) => {
-        const dataObj = {
-          clickedElement: e.target.closest(".task"),
-          index: e.target.closest(".task").getAttribute("data-index"),
-          todoActiveProjectName: document.querySelector(".open-tab"),
-          taskDetailsDiv: document.querySelector(".task-details"),
+        const target = e.target.closest("div");
 
-          // taskObject:
+        const dataObj = {
+          clickedElement: target,
+          index: e.target.closest(".task").getAttribute("data-index"),
+          todoActiveProjectName: document.querySelector(".open-tab").id,
+          taskDetailsDiv: document.querySelector(".task-details"),
         };
-        pubsub.publish("CLICKED_TODO", dataObj);
-        console.log(dataObj);
+        console.log(target.className);
+
+        switch (target.className) {
+          case "task":
+          case "task-title":
+            pubsub.publish("CLICKED_TODO", dataObj);
+            break;
+          case "mark-important":
+            pubsub.publish("MARK_IMPORTANT_CLICKED", dataObj);
+            console.log("Mark Impr");
+            break;
+          case "task-image":
+          default:
+            break;
+        }
+
+        // pubsub.publish("CLICKED_TODO", dataObj);
+        // console.log(dataObj);
       });
 
       this.taskListRenderDiv.append(taskDiv);
@@ -68,6 +86,11 @@ class ToDoRenderer {
 
     this.taskDetailsRenderDiv.querySelector("#task-title-text-box").value =
       todo.title;
+
+    // Rendering Importance
+    this.taskDetailsRenderDiv.querySelector(
+      ".mark-important-task-details>img"
+    ).src = todo.importance == "important" ? star : starOutline;
 
     this.taskDetailsRenderDiv.querySelector("#due-date-para").value =
       todo.dueDate == "" ? "Set due date" : todo.dueDate;

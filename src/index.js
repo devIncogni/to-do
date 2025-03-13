@@ -87,6 +87,7 @@ sideNavTabs.forEach((tab) => {
       oldActiveProject: document.querySelector(".open-tab"),
       newActiveProject: e.target.closest(".side-nav-tab"),
       activeProjectName: e.target.closest(".side-nav-tab").id,
+      textInputField: document.querySelector("#add-task"),
     };
     console.log(dataObject);
 
