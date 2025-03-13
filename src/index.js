@@ -171,8 +171,19 @@ taskDetailsDiv.addEventListener("click", (e) => {
       };
       pubsub.publish("REMOVE_FROM_MY_DAY", dataObj);
       break;
-    
-      case "":
+
+    case "delete-task":
+      dataObj = {
+        index: taskDetailsDiv.getAttribute("data-index"),
+        taskDetailsTab: document.querySelector(".task-details"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+
+      };
+      pubsub.publish("DELETE_TASK", dataObj);
+      pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
+
+      break;
+
     default:
       break;
   }

@@ -12,6 +12,10 @@ class TodoProject {
     this._taskList = this._taskList.filter((t) => t !== task);
   }
 
+  removeByIndex(index) {
+    this._taskList.splice(index, 1);
+  }
+
   get taskList() {
     return this._taskList;
   }

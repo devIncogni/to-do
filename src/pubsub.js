@@ -56,6 +56,8 @@ pubsub.addEvent("CLOSE_TASK_DETAILS");
 pubsub.addEvent("CLICKED_TODO");
 pubsub.addEvent("MARK_IMPORTANT_CLICKED");
 pubsub.addEvent("ADD_TO_MY_DAY");
+pubsub.addEvent("REMOVE_FROM_MY_DAY");
+pubsub.addEvent("DELETE_TASK");
 
 // #endregion Adding Events
 
@@ -140,5 +142,11 @@ pubsub.subscribe("REMOVE_FROM_MY_DAY", (dataObj) => {
   AllTasks.taskList[dataObj.index].removeFrom("my-day");
   AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
   AllTaskRenderer.renderTaskDetials(AllTasks.taskList[dataObj.index]);
+});
+
+// Delete task Subscription
+pubsub.subscribe("DELETE_TASK", (dataObj) => {
+  AllTasks.removeByIndex(dataObj.index);
+  AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
 });
 // #endregion Adding Subscriptions
