@@ -37,15 +37,15 @@ class ToDo {
   }
 
   makePartOf(project) {
-    const indexOfProject = this._projects.indexOf(project);
-    if (!(indexOfProject >= 0)) {
+    if (!this._projects.includes(project)) {
       this._projects.push(project);
     }
   }
+
   removeFrom(project) {
     const indexOfProject = this._projects.indexOf(project);
-    if (indexOfProject >= 0) {
-      this._projects.splice(this._projects.indexOf(project), 1);
+    if (this._projects.includes(project)) {
+      this._projects.splice(indexOfProject, 1);
     }
     return;
   }

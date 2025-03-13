@@ -89,9 +89,13 @@ sideNavBar.addEventListener("click", (e) => {
     activeProjectName: target.id,
     textInputField: document.querySelector("#add-task"),
   };
+  const taskDetailsDivDataObj = {
+    taskDetailsTab: document.querySelector(".task-details"),
+  };
   switch (target.className) {
     case "side-nav-tab":
       pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
+      pubsub.publish("CLOSE_TASK_DETAILS", taskDetailsDivDataObj);
       break;
 
     default:
@@ -124,3 +128,6 @@ taskHolderDiv.addEventListener("click", (e) => {
       break;
   }
 });
+
+// Logic to activate various task-details functions
+const taskDetailsDiv = document.querySelector(".task-details");

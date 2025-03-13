@@ -119,8 +119,6 @@ pubsub.subscribe("CLICKED_TODO", (clickedTodoData) => {
 pubsub.subscribe("MARK_IMPORTANT_CLICKED", (dataObj) => {
   AllTasks.taskList[dataObj.index].toggleImportance();
   AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
-  // console.log(dataObj.todoActiveProjectName);
-
   AllTaskRenderer.renderTaskDetials(AllTasks.taskList[dataObj.index]);
 });
 // #endregion Adding Subscriptions
