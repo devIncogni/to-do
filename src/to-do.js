@@ -50,6 +50,13 @@ class ToDo {
     return;
   }
 
+  isPartOf(project) {
+    if (this._projects.includes(project)) {
+      return true;
+    }
+    return false;
+  }
+
   addNote(noteText) {
     this.notes = noteText;
   }

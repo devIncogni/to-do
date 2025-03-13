@@ -42,16 +42,6 @@ hamburgers.forEach((hamburger) => {
   });
 });
 
-// Logic to close task details menu
-// const closeTaskCardButton = document.querySelector(".close-task-card > img");
-// closeTaskCardButton.addEventListener("click", (e) => {
-//   const dataObj = {
-//     clickedElement: e.target,
-//     taskDetailsTab: document.querySelector(".task-details"),
-//   };
-//   pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
-// });
-
 // Logic to trigger the hidden date picker input
 const datePickerTrigger = document.querySelector(".set-due-date");
 const dateInput = document.querySelector("#to-do-due-date");
@@ -108,19 +98,26 @@ const taskHolderDiv = document.querySelector(".task-list");
 taskHolderDiv.addEventListener("click", (e) => {
   const target = e.target.closest("div");
 
-  const dataObj = {
-    clickedElement: target,
-    index: e.target.closest(".task").getAttribute("data-index"),
-    todoActiveProjectName: document.querySelector(".open-tab").id,
-    taskDetailsDiv: document.querySelector(".task-details"),
-  };
+  let dataObj = {};
 
   switch (target.className) {
     case "task":
     case "task-title":
+      dataObj = {
+        clickedElement: target,
+        index: e.target.closest(".task").getAttribute("data-index"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+        taskDetailsDiv: document.querySelector(".task-details"),
+      };
       pubsub.publish("CLICKED_TODO", dataObj);
       break;
     case "mark-important":
+      dataObj = {
+        clickedElement: target,
+        index: e.target.closest(".task").getAttribute("data-index"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+        taskDetailsDiv: document.querySelector(".task-details"),
+      };
       pubsub.publish("MARK_IMPORTANT_CLICKED", dataObj);
       break;
     case "task-image":
@@ -134,15 +131,48 @@ const taskDetailsDiv = document.querySelector(".task-details");
 
 taskDetailsDiv.addEventListener("click", (e) => {
   const target = e.target.closest("div");
+  let dataObj = {};
   switch (target.className) {
     case "close-task-details-image":
-      const dataObj = {
+      dataObj = {
         clickedElement: e.target,
         taskDetailsTab: document.querySelector(".task-details"),
       };
       pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
       break;
-  
+
+    case "mark-important mark-important-task-details":
+      // Indec and Active Project
+      dataObj = {
+        index: taskDetailsDiv.getAttribute("data-index"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+      };
+      pubsub.publish("MARK_IMPORTANT_CLICKED", dataObj);
+      break;
+
+    case "add-to-my-day":
+      dataObj = {
+        index: taskDetailsDiv.getAttribute("data-index"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+        myDayDiv: e.target.closest(".add-to-my-day"),
+        myDayDivPara: e.target.closest(".add-to-my-day").querySelector("p"),
+      };
+      pubsub.publish("ADD_TO_MY_DAY", dataObj);
+      break;
+
+    case "remove-from-my-day":
+      dataObj = {
+        index: taskDetailsDiv.getAttribute("data-index"),
+        todoActiveProjectName: document.querySelector(".open-tab").id,
+        myDayDiv: e.target.closest(".remove-from-my-day"),
+        myDayDivPara: e.target
+          .closest(".remove-from-my-day")
+          .querySelector("p"),
+      };
+      pubsub.publish("REMOVE_FROM_MY_DAY", dataObj);
+      break;
+    
+      case "":
     default:
       break;
   }

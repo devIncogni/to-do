@@ -48,6 +48,7 @@
 .task-title-holder,
 .step-check-list,
 .add-to-my-day,
+.remove-from-my-day,
 .set-due-date,
 .notes,
 .delete-task {
@@ -90,6 +91,7 @@
 .task-title-holder:hover,
 .step-check-list:hover,
 .add-to-my-day:hover,
+.remove-from-my-day:hover,
 .set-due-date:hover,
 .notes:hover,
 .delete-task:hover {
@@ -100,6 +102,7 @@
 
 .step-check-list:active,
 .add-to-my-day:active,
+.remove-from-my-day:active,
 .set-due-date:active {
     background-color: #f6f6f6;
 }

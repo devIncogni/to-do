@@ -2,6 +2,7 @@ import { pubsub } from "./pubsub";
 import circleOutline from "./circle-outline.svg";
 import starOutline from "./star-outline.svg";
 import star from "./star.svg";
+import checkCircle from "./check-circle.svg";
 import { AllTasks } from "./todo-projects";
 
 class ToDoRenderer {
@@ -22,7 +23,6 @@ class ToDoRenderer {
       const taskTitleDiv = document.createElement("div");
       const taskMarkImportantDiv = document.createElement("div");
 
-      const taskImage = document.createElement("img");
       const markImportantImage = document.createElement("img");
 
       taskDiv.classList.add("task");
@@ -34,11 +34,13 @@ class ToDoRenderer {
       taskTitleDiv.classList.add("task-title");
       taskMarkImportantDiv.classList.add("mark-important");
 
-      taskImage.src = circleOutline;
+      if (task.complete) {
+        taskImageDiv.style.background = "url(" + checkCircle + ")";
+      }
+
       markImportantImage.src =
         task.importance == "important" ? star : starOutline;
 
-      taskImageDiv.append(taskImage);
       taskMarkImportantDiv.append(markImportantImage);
 
       taskTitleDiv.textContent = task.title;

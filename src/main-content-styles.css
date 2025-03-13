@@ -84,3 +84,13 @@
     background-color: #faf9f8;
     background-color: #f0f6ff;
 }
+
+.task-image {
+    background: url("./circle-outline.svg");
+    aspect-ratio: 1;
+    height: 1rem;
+}
+
+.task-image:hover {
+    background: url("./check-circle-outline.svg");
+}
