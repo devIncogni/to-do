@@ -1,4 +1,4 @@
-import { format } from "date-fns";
+import { format, isValid, parse } from "date-fns";
 class ToDo {
   constructor(
     title,
@@ -10,8 +10,8 @@ class ToDo {
   ) {
     this.title = title;
     this.importance = importance;
-    this._creationDate = format(new Date(), "dd/MM/yyyy");
-    this.dueDate = dueDate != "" ? format(dueDate, "dd/MM/yyyy") : "";
+    this._creationDate = format(new Date(), "dd-MM-yyyy");
+    this.dueDate = dueDate != "" ? format(dueDate, "dd-MM-yyyy") : "";
     this.notes = notes;
     this.complete = complete;
     this._projects = projects;
@@ -29,7 +29,12 @@ class ToDo {
   }
 
   modifyDueDate(dueDate) {
-    this.dueDate = format(dueDate, "dd/MM/yyyy");
+    
+    dueDate = parse(dueDate, "yyyy-MM-dd", new Date());
+    console.log(dueDate);
+    console.log(isValid(dueDate));
+
+    this.dueDate = isValid(dueDate) ? format(dueDate, "dd-MM-yyyy") : "";
   }
 
   get projects() {

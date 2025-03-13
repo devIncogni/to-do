@@ -5,6 +5,7 @@ import { AllTasks } from "./todo-projects";
 import { AllTaskRenderer } from "./dom-renderer";
 import starOutline from "./star-outline.svg";
 import star from "./star.svg";
+import { parse, isValid } from "date-fns";
 
 const pubsub = (() => {
   const events = {};
@@ -148,5 +149,19 @@ pubsub.subscribe("REMOVE_FROM_MY_DAY", (dataObj) => {
 pubsub.subscribe("DELETE_TASK", (dataObj) => {
   AllTasks.removeByIndex(dataObj.index);
   AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
+});
+
+// Change due date subscription
+pubsub.subscribe("CHANGE_DUE_DATE", (dataObj) => {
+  let task = AllTasks.taskList[dataObj.index];
+  task.modifyDueDate(dataObj.dateValue);
+  if (isValid(parse(task.dueDate, "dd/MM/yyyy", new Date()))) {
+    task.makePartOf("scheduled");
+  } else {
+    task.removeFrom("scheduled");
+  }
+  AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
+  AllTaskRenderer.renderTaskDetials(task);
+  console.log("Due on " + task.dueDate);
 });
 // #endregion Adding Subscriptions

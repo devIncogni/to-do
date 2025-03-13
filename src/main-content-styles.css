@@ -67,8 +67,18 @@
     cursor: pointer;
 }
 
-.task-title {
+.title-and-due-date {
     flex: 1;
+}
+
+.task-title {
+    word-break: break-all;
+}
+
+.due {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #7d7d7d;
 }
 
 .task:hover {

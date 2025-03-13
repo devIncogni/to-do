@@ -4,6 +4,7 @@ import starOutline from "./star-outline.svg";
 import star from "./star.svg";
 import checkCircle from "./check-circle.svg";
 import { AllTasks } from "./todo-projects";
+import { format } from "date-fns";
 
 class ToDoRenderer {
   constructor(toDoProject, taskListRenderDiv, taskDetailsRenderDiv) {
@@ -20,10 +21,12 @@ class ToDoRenderer {
     renderableTaskList.forEach((task) => {
       const taskDiv = document.createElement("div");
       const taskImageDiv = document.createElement("div");
-      const taskTitleDiv = document.createElement("div");
+      const taskTitleAndDueDateDiv = document.createElement("div");
       const taskMarkImportantDiv = document.createElement("div");
 
       const markImportantImage = document.createElement("img");
+
+      const taskTitlePara = document.createElement("p");
 
       taskDiv.classList.add("task");
       taskDiv.setAttribute(
@@ -31,8 +34,10 @@ class ToDoRenderer {
         this.toDoProject.taskList.indexOf(task)
       );
       taskImageDiv.classList.add("task-image");
-      taskTitleDiv.classList.add("task-title");
+      taskTitleAndDueDateDiv.classList.add("title-and-due-date");
       taskMarkImportantDiv.classList.add("mark-important");
+
+      taskTitlePara.classList.add("task-title");
 
       if (task.complete) {
         taskImageDiv.style.background = "url(" + checkCircle + ")";
@@ -43,9 +48,26 @@ class ToDoRenderer {
 
       taskMarkImportantDiv.append(markImportantImage);
 
-      taskTitleDiv.textContent = task.title;
+      taskTitlePara.textContent = task.title;
 
-      taskDiv.append(taskImageDiv, taskTitleDiv, taskMarkImportantDiv);
+      taskTitleAndDueDateDiv.append(taskTitlePara);
+
+      if (task.dueDate != "") {
+        let dueDiv = document.createElement("div");
+        dueDiv.classList.add("due");
+
+        let dueDivPara = document.createElement("p");
+
+        dueDivPara.textContent = "Due: " + task.dueDate;
+        dueDiv.append(dueDivPara);
+        taskTitleAndDueDateDiv.append(dueDiv);
+      }
+
+      taskDiv.append(
+        taskImageDiv,
+        taskTitleAndDueDateDiv,
+        taskMarkImportantDiv
+      );
 
       this.taskListRenderDiv.append(taskDiv);
     });
@@ -65,8 +87,8 @@ class ToDoRenderer {
       ".mark-important-task-details>img"
     ).src = todo.importance == "important" ? star : starOutline;
 
-    this.taskDetailsRenderDiv.querySelector("#due-date-para").value =
-      todo.dueDate == "" ? "Set due date" : todo.dueDate;
+    this.taskDetailsRenderDiv.querySelector("#due-date-para").textContent =
+      todo.dueDate == "" ? "Set due date" : "Due: " + todo.dueDate;
 
     this.taskDetailsRenderDiv.querySelector("#todo-notes").value = todo.notes;
 

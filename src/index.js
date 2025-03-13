@@ -22,7 +22,7 @@ import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 import "./dom-renderer.js";
 import { AllTaskRenderer } from "./dom-renderer.js";
-import { format } from "date-fns";
+import { format, formatRelative, parse, subDays } from "date-fns";
 
 // Update Todays Date in the header
 const datePara = document.querySelector(".date-holder > p");
@@ -177,7 +177,6 @@ taskDetailsDiv.addEventListener("click", (e) => {
         index: taskDetailsDiv.getAttribute("data-index"),
         taskDetailsTab: document.querySelector(".task-details"),
         todoActiveProjectName: document.querySelector(".open-tab").id,
-
       };
       pubsub.publish("DELETE_TASK", dataObj);
       pubsub.publish("CLOSE_TASK_DETAILS", dataObj);
@@ -188,4 +187,16 @@ taskDetailsDiv.addEventListener("click", (e) => {
       break;
   }
   console.log(target);
+});
+
+// Logic to set due date
+const dueDateInput = document.querySelector("#to-do-due-date");
+dueDateInput.addEventListener("change", (e) => {
+  const dataObj = {
+    dateValue: e.target.value,
+    index: taskDetailsDiv.getAttribute("data-index"),
+    todoActiveProjectName: document.querySelector(".open-tab").id,
+  };
+  pubsub.publish("CHANGE_DUE_DATE", dataObj);
+  console.log(e.target.value);
 });
