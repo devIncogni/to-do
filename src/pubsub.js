@@ -164,4 +164,13 @@ pubsub.subscribe("CHANGE_DUE_DATE", (dataObj) => {
   AllTaskRenderer.renderTaskDetials(task);
   console.log("Due on " + task.dueDate);
 });
+
+// Todo Note subscription
+pubsub.subscribe("TODO_NOTE_EDITED", (dataObj) => {
+  let task = AllTasks.taskList[dataObj.index];
+  task.addNote(dataObj.noteValue);
+
+  AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
+  AllTaskRenderer.renderTaskDetials(task);
+});
 // #endregion Adding Subscriptions

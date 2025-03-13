@@ -103,6 +103,8 @@ taskHolderDiv.addEventListener("click", (e) => {
   switch (target.className) {
     case "task":
     case "task-title":
+    case "title-and-due-date":
+    case "due":
       dataObj = {
         clickedElement: target,
         index: e.target.closest(".task").getAttribute("data-index"),
@@ -199,4 +201,15 @@ dueDateInput.addEventListener("change", (e) => {
   };
   pubsub.publish("CHANGE_DUE_DATE", dataObj);
   console.log(e.target.value);
+});
+
+// Logic to add notes
+const notesTextArea = document.querySelector("#todo-notes");
+notesTextArea.addEventListener("input", (e) => {
+  let dataObj = {
+    index: taskDetailsDiv.getAttribute("data-index"),
+    todoActiveProjectName: document.querySelector(".open-tab").id,
+    noteValue: e.target.value,
+  };
+  pubsub.publish("TODO_NOTE_EDITED", dataObj)
 });
