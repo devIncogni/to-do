@@ -100,6 +100,8 @@ pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
 
 // Change ToDo Project Subscription
 pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
+  changeProjectData.textInputField.focus();
+
   if (!changeProjectData.oldActiveProject) {
     changeProjectData.newActiveProject.classList.toggle("open-tab");
     return;
@@ -114,7 +116,6 @@ pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
     changeProjectData.oldActiveProject.classList.toggle("open-tab");
     changeProjectData.newActiveProject.classList.toggle("open-tab");
   }
-  changeProjectData.textInputField.focus();
   AllTaskRenderer.renderTaskList(changeProjectData.activeProjectName);
 });
 
