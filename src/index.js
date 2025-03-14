@@ -40,7 +40,6 @@ window.onload = function () {
         JSON.parse(jsonCustomProjectList)
       );
   }
-  // localStorage.clear();
 
 AllTaskRenderer.renderSideNavBarCustomMenu();
 AllTaskRenderer.renderTaskList("my-day");

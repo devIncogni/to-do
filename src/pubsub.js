@@ -104,7 +104,13 @@ pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
   changeProjectData.textInputField.focus();
 
   if (!changeProjectData.oldActiveProject) {
-    changeProjectData.newActiveProject.classList.toggle("open-tab");
+    if (changeProjectData.newActiveProject.classList.contains("open-tab")) {
+      AllTaskRenderer.renderTaskList(changeProjectData.activeProjectName);
+    } else {
+      changeProjectData.newActiveProject.classList.toggle("open-tab");
+      AllTaskRenderer.renderTaskList(changeProjectData.activeProjectName);
+    }
+
     return;
   }
 
@@ -210,7 +216,7 @@ pubsub.subscribe("DELETE_CUSTOM_PROJECT", (dataObj) => {
 
 // Any Time the task list is modified
 pubsub.subscribe("TASK_LIST_MODIFIED", (taskList) => {
-  localStorage.removeItem("taskList");
+  // localStorage.removeItem("taskList");
   localStorage.setItem("taskList", JSON.stringify(taskList));
   console.log(localStorage.getItem("taskList"));
   console.log(JSON.parse(localStorage.getItem("taskList")));
@@ -218,7 +224,7 @@ pubsub.subscribe("TASK_LIST_MODIFIED", (taskList) => {
 
 // Any time custom project list is modified
 pubsub.subscribe("CUSTOM_PROJECT_CHANGED", (customProjectList) => {
-  localStorage.removeItem("customProjectList");
+  // localStorage.removeItem("customProjectList");
   localStorage.setItem("customProjectList", JSON.stringify(customProjectList));
 });
 
