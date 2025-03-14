@@ -41,8 +41,8 @@ window.onload = function () {
       );
   }
 
-AllTaskRenderer.renderSideNavBarCustomMenu();
-AllTaskRenderer.renderTaskList("my-day");
+  AllTaskRenderer.renderSideNavBarCustomMenu();
+  AllTaskRenderer.renderTaskList("my-day");
 };
 
 // Update Todays Date in the header
@@ -120,7 +120,7 @@ sideNavBar.addEventListener("click", (e) => {
       };
       pubsub.publish("DELETE_CUSTOM_PROJECT", dataObject);
       pubsub.publish("CHANGE_TODO_PROJECT", {
-        oldActiveProject: null,
+        oldActiveProject: document.querySelector(".open-tab"),
         newActiveProject: document.querySelector("#all-tasks"),
         activeProjectName: "all-tasks",
         textInputField: document.querySelector("#add-task"),
