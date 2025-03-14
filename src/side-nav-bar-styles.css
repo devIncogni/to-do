@@ -38,6 +38,21 @@
     border-left: 0.25rem solid #eee;
 }
 
+.side-nav-tab>p {
+    flex: 1;
+}
+
+.delete-project {
+    background: url("./delete-outline.svg");
+    width: 1.25rem;
+    aspect-ratio: 1;
+    cursor: pointer;
+}
+
+.delete-project:hover {
+    background: url("./delete.svg");
+}
+
 .open-tab {
     background-color: #f0f6ff;
     border-left: 0.25rem solid #296fe6;
@@ -53,4 +68,76 @@
     width: 90%;
     background-color: #000000;
     margin: 0.5rem auto;
+}
+
+.create-lists {
+    margin: auto;
+    padding: 0.5rem 1rem;
+    width: 100%;
+    min-height: 4rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    cursor: pointer;
+    user-select: none;
+
+    background-color: #faf9f8;
+
+    /* border: 1px solid black; */
+}
+
+.create-lists:hover {
+    background-color: #eae6e1;
+}
+
+.create-lists:active {
+    background-color: #fbfaf9;
+}
+
+dialog {
+    margin: auto;
+    padding: 1rem;
+    border-radius: 0.25rem;
+    border: 0.125rem solid black;
+}
+
+dialog>form {
+
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+dialog>form input {
+    padding: 0.25rem;
+}
+
+dialog>form button {
+    padding: 0.25rem;
+    flex: 1;
+
+    background-color: white;
+    color: black;
+    border: 0.1rem solid black;
+    border-radius: 0.25rem;
+    cursor: pointer;
+
+    transition: background-color, color, 250ms;
+}
+
+dialog>form button:hover {
+    background-color: hsl(0, 0%, 0%);
+    color: white;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+::backdrop {
+    background: rgb(192, 192, 192);
+    opacity: 0.75;
 }

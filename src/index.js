@@ -22,7 +22,7 @@ import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
 import "./dom-renderer.js";
 import { AllTaskRenderer } from "./dom-renderer.js";
-import { format, formatRelative, parse, subDays } from "date-fns";
+import { format, formatRFC3339 } from "date-fns";
 
 // Update Todays Date in the header
 const datePara = document.querySelector(".date-holder > p");
@@ -73,7 +73,7 @@ const sideNavBar = document.querySelector(".side-nav-bar");
 
 sideNavBar.addEventListener("click", (e) => {
   const target = e.target.closest("div");
-  const dataObject = {
+  let dataObject = {
     oldActiveProject: document.querySelector(".open-tab"),
     newActiveProject: target,
     activeProjectName: target.id,
@@ -87,6 +87,23 @@ sideNavBar.addEventListener("click", (e) => {
       pubsub.publish("CHANGE_TODO_PROJECT", dataObject);
       pubsub.publish("CLOSE_TASK_DETAILS", taskDetailsDivDataObj);
       break;
+
+    case "create-lists":
+      document.querySelector("dialog").showModal();
+      document.querySelector("form").reset();
+      break;
+
+    case "delete-project":
+      dataObject = {
+        projectID: target.parentElement.id,
+      };
+      pubsub.publish("DELETE_CUSTOM_PROJECT", dataObject);
+      pubsub.publish("CHANGE_TODO_PROJECT", {
+        oldActiveProject: null,
+        newActiveProject: document.querySelector("#all-tasks"),
+        activeProjectName: "all-tasks",
+        textInputField: document.querySelector("#add-task"),
+      });
 
     default:
       break;
@@ -239,4 +256,28 @@ taskTitleInput.addEventListener("input", (e) => {
     titleValue: e.target.value,
   };
   pubsub.publish("TODO_TITLE_CHANGED", dataObj);
+});
+
+// Logic to handle the dialog box
+const newProjectDialog = document.querySelector("dialog");
+newProjectDialog.addEventListener("click", (e) => {
+  const target = e.target;
+  let dataObj = {};
+  switch (target.id) {
+    case "cancel":
+      e.preventDefault();
+      newProjectDialog.querySelector("form").reset();
+      newProjectDialog.close();
+      break;
+
+    case "submit":
+      dataObj = {
+        name: newProjectDialog.querySelector("input").value,
+      };
+      if (dataObj.name) pubsub.publish("NEW_PROJECT_CREATED", dataObj);
+      break;
+
+    default:
+      break;
+  }
 });

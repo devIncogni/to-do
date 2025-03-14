@@ -1,16 +1,25 @@
 import { pubsub } from "./pubsub";
 import circleOutline from "./circle-outline.svg";
+import checkAll from "./check-all.svg";
 import starOutline from "./star-outline.svg";
 import star from "./star.svg";
 import checkCircle from "./check-circle.svg";
 import { AllTasks } from "./todo-projects";
-import { format } from "date-fns";
+import { CustomProject } from "./side-nav-bar-custom-projects";
 
 class ToDoRenderer {
-  constructor(toDoProject, taskListRenderDiv, taskDetailsRenderDiv) {
+  constructor(
+    toDoProject,
+    customProject,
+    taskListRenderDiv,
+    taskDetailsRenderDiv,
+    customProjectDiv
+  ) {
     this.toDoProject = toDoProject;
+    this.customProject = customProject;
     this.taskListRenderDiv = taskListRenderDiv;
     this.taskDetailsRenderDiv = taskDetailsRenderDiv;
+    this.customProjectDiv = customProjectDiv;
   }
 
   renderTaskList(projectName) {
@@ -96,13 +105,12 @@ class ToDoRenderer {
       taskTitlePara.style.textDecorationThickness = "0.1rem";
       taskTitlePara.style.textDecorationColor = "#000000";
       taskTitlePara.style.color = "#505050";
-    }else {
+    } else {
       taskImageDiv.style.background = "";
       taskTitlePara.style.textDecoration = "";
       taskTitlePara.style.textDecorationThickness = "";
       taskTitlePara.style.textDecorationColor = "";
       taskTitlePara.style.color = "";
-
     }
 
     // Rendering Importance
@@ -118,12 +126,37 @@ class ToDoRenderer {
     this.taskDetailsRenderDiv.querySelector(".close-task-card>p").textContent =
       "Created: " + todo.creationDate;
   }
+
+  renderSideNavBarCustomMenu() {
+    let projectsList = this.customProject.customProjectList;
+    this.customProjectDiv.textContent = "";
+
+    for (const key in projectsList) {
+      const sideNavTab = document.createElement("div");
+      const sideNavTabDelete = document.createElement("div");
+      const sideNavTabPara = document.createElement("p");
+      const sideNavTabImage = document.createElement("img");
+
+      sideNavTab.id = key;
+      sideNavTab.classList.add("side-nav-tab");
+      sideNavTabDelete.classList.add("delete-project");
+
+      sideNavTabPara.textContent = projectsList[key];
+      sideNavTabImage.src = checkAll;
+
+      sideNavTab.append(sideNavTabImage, sideNavTabPara, sideNavTabDelete);
+
+      this.customProjectDiv.append(sideNavTab);
+    }
+  }
 }
 
 const TaskRenderer = new ToDoRenderer(
   AllTasks,
+  CustomProject,
   document.querySelector(".task-list"),
-  document.querySelector(".task-details")
+  document.querySelector(".task-details"),
+  document.querySelector(".custom-projects")
 );
 
 export { TaskRenderer as AllTaskRenderer };

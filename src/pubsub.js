@@ -6,6 +6,7 @@ import { AllTaskRenderer } from "./dom-renderer";
 import starOutline from "./star-outline.svg";
 import star from "./star.svg";
 import { parse, isValid } from "date-fns";
+import { CustomProject } from "./side-nav-bar-custom-projects";
 
 const pubsub = (() => {
   const events = {};
@@ -99,6 +100,11 @@ pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
 
 // Change ToDo Project Subscription
 pubsub.subscribe("CHANGE_TODO_PROJECT", (changeProjectData) => {
+  if (!changeProjectData.oldActiveProject) {
+    changeProjectData.newActiveProject.classList.toggle("open-tab");
+    return;
+  }
+
   if (
     changeProjectData.oldActiveProject.id ===
     changeProjectData.newActiveProject.id
@@ -191,6 +197,19 @@ pubsub.subscribe("TASK_TOGGLE_COMPLETE", (dataObj) => {
 
   AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
   AllTaskRenderer.renderTaskDetials(task);
+});
+
+// New Project creation
+pubsub.subscribe("NEW_PROJECT_CREATED", (dataObj) => {
+  CustomProject.addCustomProject(dataObj.name);
+  AllTaskRenderer.renderSideNavBarCustomMenu();
+});
+
+// Custom Project Deletion
+pubsub.subscribe("DELETE_CUSTOM_PROJECT", (dataObj) => {
+  let deletionID = dataObj.projectID;
+  CustomProject.deleteCustomProject(deletionID);
+  AllTaskRenderer.renderSideNavBarCustomMenu();
 });
 
 // #endregion Adding Subscriptions
