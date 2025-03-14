@@ -15,6 +15,7 @@ import "./star-outline.svg";
 import "./calendar-month-outline.svg";
 import "./close.svg";
 import "./delete-forever-outline.svg";
+import "./nuke.svg";
 
 // JS Imports
 import { pubsub } from "./pubsub.js";
@@ -44,6 +45,13 @@ window.onload = function () {
   AllTaskRenderer.renderSideNavBarCustomMenu();
   AllTaskRenderer.renderTaskList("my-day");
 };
+
+document
+  .querySelector(".misc-options-holder")
+  .addEventListener("click", (e) => {
+    localStorage.clear();
+    window.location.reload();
+  });
 
 // Update Todays Date in the header
 const datePara = document.querySelector(".date-holder > p");
