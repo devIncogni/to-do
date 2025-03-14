@@ -135,18 +135,12 @@ pubsub.subscribe("MARK_IMPORTANT_CLICKED", (dataObj) => {
 
 // Add to my day and remove from my day subscription
 pubsub.subscribe("ADD_TO_MY_DAY", (dataObj) => {
-  dataObj.myDayDiv.className = "remove-from-my-day";
-  dataObj.myDayDivPara.textContent = "Remove From My Day";
-
   AllTasks.taskList[dataObj.index].makePartOf("my-day");
   AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
   AllTaskRenderer.renderTaskDetials(AllTasks.taskList[dataObj.index]);
 });
 
 pubsub.subscribe("REMOVE_FROM_MY_DAY", (dataObj) => {
-  dataObj.myDayDiv.className = "add-to-my-day";
-  dataObj.myDayDivPara.textContent = "Add To My Day";
-
   AllTasks.taskList[dataObj.index].removeFrom("my-day");
   AllTaskRenderer.renderTaskList(dataObj.todoActiveProjectName);
   AllTaskRenderer.renderTaskDetials(AllTasks.taskList[dataObj.index]);

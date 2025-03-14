@@ -113,6 +113,20 @@ class ToDoRenderer {
       taskTitlePara.style.color = "";
     }
 
+    if (todo.isPartOf("my-day")) {
+      let myDayDiv = this.taskDetailsRenderDiv.querySelector("#my-day-div");
+      let myDayDivPara = myDayDiv.querySelector("p");
+
+      myDayDiv.className = "remove-from-my-day";
+      myDayDivPara.textContent = "Remove From My Day";
+    } else {
+      let myDayDiv = this.taskDetailsRenderDiv.querySelector("#my-day-div");
+      let myDayDivPara = myDayDiv.querySelector("p");
+
+      myDayDiv.className = "add-to-my-day";
+      myDayDivPara.textContent = "Add To My Day";
+    }
+
     // Rendering Importance
     this.taskDetailsRenderDiv.querySelector(
       ".mark-important-task-details>img"
