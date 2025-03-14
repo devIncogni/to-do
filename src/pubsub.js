@@ -93,6 +93,7 @@ pubsub.subscribe("CREATED_TODO", (toDoCreationData) => {
     tempToDo.makePartOf("all-tasks");
   }
   console.log(tempToDo);
+  console.log(JSON.parse(JSON.stringify(tempToDo)));
 
   AllTasks.addToTaskList(tempToDo);
   AllTaskRenderer.renderTaskList(toDoCreationData.todoActiveProject);
@@ -205,6 +206,20 @@ pubsub.subscribe("DELETE_CUSTOM_PROJECT", (dataObj) => {
   let deletionID = dataObj.projectID;
   CustomProject.deleteCustomProject(deletionID);
   AllTaskRenderer.renderSideNavBarCustomMenu();
+});
+
+// Any Time the task list is modified
+pubsub.subscribe("TASK_LIST_MODIFIED", (taskList) => {
+  localStorage.removeItem("taskList");
+  localStorage.setItem("taskList", JSON.stringify(taskList));
+  console.log(localStorage.getItem("taskList"));
+  console.log(JSON.parse(localStorage.getItem("taskList")));
+});
+
+// Any time custom project list is modified
+pubsub.subscribe("CUSTOM_PROJECT_CHANGED", (customProjectList) => {
+  localStorage.removeItem("customProjectList");
+  localStorage.setItem("customProjectList", JSON.stringify(customProjectList));
 });
 
 // #endregion Adding Subscriptions

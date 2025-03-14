@@ -17,12 +17,34 @@ import "./close.svg";
 import "./delete-forever-outline.svg";
 
 // JS Imports
-import { ToDo } from "./to-do.js";
-import { TodoProject, ProjectsHolder } from "./todo-projects.js";
 import { pubsub } from "./pubsub.js";
-import "./dom-renderer.js";
+import { ToDo } from "./to-do.js";
+import { AllTasks } from "./todo-projects.js";
 import { AllTaskRenderer } from "./dom-renderer.js";
 import { format, formatRFC3339 } from "date-fns";
+import { StorageToFunctional } from "./storage-to-functional.js";
+import { CustomProject } from "./side-nav-bar-custom-projects.js";
+
+window.onload = function () {
+  let jsonTaskList = localStorage.getItem("taskList");
+  let jsonCustomProjectList = localStorage.getItem("customProjectList");
+
+  if (jsonTaskList) {
+    AllTasks._taskList = StorageToFunctional.getFunctionalTaskObjectList(
+      JSON.parse(jsonTaskList)
+    );
+  }
+  if (jsonCustomProjectList) {
+    CustomProject.customProjectList =
+      StorageToFunctional.getFunctionalCustomProjectList(
+        JSON.parse(jsonCustomProjectList)
+      );
+  }
+  // localStorage.clear();
+
+AllTaskRenderer.renderSideNavBarCustomMenu();
+AllTaskRenderer.renderTaskList("my-day");
+};
 
 // Update Todays Date in the header
 const datePara = document.querySelector(".date-holder > p");
