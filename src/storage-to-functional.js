@@ -1,27 +1,25 @@
-import { ToDo } from "./to-do";
+import ToDo from './to-do';
 
 const StorageToFunctional = (() => {
   const getFunctionalTaskObjectList = (jsonParsedTaskObjectArray) => {
-    let todoProjectList = [];
+    const todoProjectList = [];
     jsonParsedTaskObjectArray.forEach((jsonParsedTaskObject) => {
-      let tempToDo = new ToDo(
+      const tempToDo = new ToDo(
         jsonParsedTaskObject.title,
-        jsonParsedTaskObject._projects,
+        jsonParsedTaskObject.projects,
         jsonParsedTaskObject.dueDate,
         jsonParsedTaskObject.importance,
         jsonParsedTaskObject.notes,
-        jsonParsedTaskObject.complete
+        jsonParsedTaskObject.complete,
       );
       todoProjectList.push(tempToDo);
     });
     return todoProjectList;
   };
 
-  const getFunctionalCustomProjectList = (jsonParsedCustomProjectList) => {
-    return jsonParsedCustomProjectList;
-  };
-
+  // eslint-disable-next-line max-len
+  const getFunctionalCustomProjectList = (jsonParsedCustomProjectList) => jsonParsedCustomProjectList;
   return { getFunctionalTaskObjectList, getFunctionalCustomProjectList };
 })();
 
-export { StorageToFunctional };
+export default StorageToFunctional;
