@@ -52,7 +52,6 @@ document
 
 // Update Todays Date in the header
 const datePara = document.querySelector('.date-holder > p');
-// console.log(datePara);
 datePara.textContent = format(new Date(), 'eeee, LLLL do');
 
 // Logic to toggle the side menu
