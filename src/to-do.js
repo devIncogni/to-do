@@ -12,7 +12,7 @@ class ToDo {
     this.title = title;
     this.importance = importance;
     this.creationDate = format(new Date(), 'dd-MM-yyyy');
-    this.dueDate = dueDate !== '' ? format(dueDate, 'dd-MM-yyyy') : '';
+    this.dueDate = dueDate !== '' ? dueDate : '';
     this.notes = notes;
     this.complete = complete;
     this.projects = projects;
